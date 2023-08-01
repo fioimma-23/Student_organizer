@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assignment Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .assignment-list {
+      list-style: none;
+      padding: 0;
+    }
+    .assignment-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Assignment Management</h1>
+  <form id="assignmentForm">
+    <label for="assignmentTitle">Assignment Title:</label>
+    <input type="text" id="assignmentTitle" required>
+
+    <label for="submissionDate">Submission Date:</label>
+    <input type="date" id="submissionDate" required>
+
+    <button type="submit">Add Assignment</button>
+  </form>
+
+  <h2>Assignments:</h2>
+  <ul id="assignmentList" class="assignment-list"></ul>
+
+  <script>
+    document.getElementById("assignmentForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const assignmentTitle = document.getElementById("assignmentTitle").value;
+      const submissionDate = document.getElementById("submissionDate").value;
+
+      const assignmentItem = document.createElement("li");
+      assignmentItem.className = "assignment-item";
+      assignmentItem.innerHTML = `<strong>${assignmentTitle}</strong> - Submission Date: ${submissionDate}`;
+      
+      const assignmentList = document.getElementById("assignmentList");
+      assignmentList.appendChild(assignmentItem);
+
+      sortAssignmentsByDate();
+    });
+
+    function sortAssignmentsByDate() {
+      const assignmentList = document.getElementById("assignmentList");
+      const assignments = Array.from(assignmentList.getElementsByClassName("assignment-item"));
+
+      assignments.sort((a, b) => {
+        const dateA = new Date(a.querySelector("strong").textContent);
+        const dateB = new Date(b.querySelector("strong").textContent);
+        return dateA - dateB;
+      });
+
+      while (assignmentList.firstChild) {
+        assignmentList.removeChild(assignmentList.firstChild);
+      }
+
+      assignments.forEach(assignment => {
+        assignmentList.appendChild(assignment);
+      });
+    }
+  </script>
+</body>
+</html>

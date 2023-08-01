@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Attendance Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="number"] {
+      width: 100px;
+    }
+    button {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Attendance Calculator</h1>
+  <form id="attendanceForm">
+    <label for="totalClasses">Total Classes:</label>
+    <input type="number" id="totalClasses" required min="1" value="1">
+
+    <label for="classesAttended">Classes Attended:</label>
+    <input type="number" id="classesAttended" required min="0" value="0">
+
+    <button type="button" onclick="calculateAttendance()">Calculate</button>
+  </form>
+
+  <div id="attendanceResult"></div>
+
+  <script>
+    function calculateAttendance() {
+      const totalClasses = parseInt(document.getElementById("totalClasses").value);
+      const classesAttended = parseInt(document.getElementById("classesAttended").value);
+
+      if (isNaN(totalClasses) || isNaN(classesAttended)) {
+        alert("Please enter valid numbers for Total Classes and Classes Attended.");
+        return;
+      }
+
+      if (totalClasses < 1 || classesAttended < 0) {
+        alert("Total Classes should be at least 1, and Classes Attended cannot be negative.");
+        return;
+      }
+
+      const attendancePercentage = (classesAttended / totalClasses) * 100;
+
+      const resultDiv = document.getElementById("attendanceResult");
+      resultDiv.innerHTML = `<p>Attendance Percentage: ${attendancePercentage.toFixed(2)}%</p>`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Study Group Collaboration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #chatBox {
+      border: 1px solid #ccc;
+      height: 200px;
+      overflow-y: scroll;
+      padding: 10px;
+    }
+    #chatInput {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .material-item {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+    .material-item img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Study Group Collaboration</h1>
+
+  
+  <h2>Upload Materials</h2>
+  <form id="fileUploadForm" enctype="multipart/form-data">
+    <input type="file" id="fileInput" required>
+    <button type="submit">Upload</button>
+  </form>
+
+  
+  <h2>Shared Materials</h2>
+  <div id="materialList">
+    
+  </div>
+
+ 
+  <h2>Chat</h2>
+  <div id="chatBox">
+   
+  </div>
+  <input type="text" id="chatInput" placeholder="Type your message...">
+
+  <script>
+   
+    document.getElementById("fileUploadForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+
+
+    });
+
+    
+    document.getElementById("chatInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        const message = this.value;
+
+        const chatBox = document.getElementById("chatBox");
+        const chatMessage = document.createElement("p");
+        chatMessage.textContent = message;
+        chatBox.appendChild(chatMessage);
+
+        this.value = ""; 
+      }
+    });
+
+   
+    function displayMaterials(materials) {
+      const materialList = document.getElementById("materialList");
+
+      materials.forEach(material => {
+        const materialItem = document.createElement("div");
+        materialItem.className = "material-item";
+        materialItem.innerHTML = `<img src="file-icon.png" alt="File Icon"> ${material.name}`;
+        materialList.appendChild(materialItem);
+      });
+    }
+
+   
+  </script>
+</body>
+</html>
